@@ -1,0 +1,62 @@
+<div class="signup">
+  <form action="/signup" method="POST">
+    <label for="fullname">Full Name</label>
+    <input
+      type="text"
+      id="fullname"
+      name="fullname"
+      required
+      value="<%= old?.fullname || '' %>"
+      class="<%= errors?.fullname ? 'input-error' : '' %>"
+    />
+    <% if (errors?.fullname) { %> 
+        <small class="error-message">
+            <%= errors.fullname.msg %>
+        </small>
+    <% } %>
+    <label for="nickname">How should we address you</label>
+    <input
+      type="text"
+      id="nickname"
+      name="nickname"
+      placeholder="nickname"
+      required
+      value="<%= old?.nickname || '' %>"
+      class="<%= errors?.nickname ? 'input-error' : '' %>"
+    />
+    <% if (errors?.nickname) { %> 
+        <small class="error-message">
+            <%= errors.nickname.msg %>
+        </small>
+    <% } %>
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      required
+      value="<%= old?.password || '' %>"
+      class="<%= errors?.password ? 'input-error' : '' %>"
+    />
+    <% if (errors?.password) { %> 
+        <small class="error-message">
+            <%= errors.password.msg %>
+        </small>
+    <% } %>
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      name="confirmPassword"
+      value="<%= old?.confirmPassword || '' %>"
+      class="<%= errors?.confirmPassword ? 'input-error' : '' %>"
+    />
+    <% if (errors?.confirmPassword) { %> 
+        <small class="error-message">
+            <%= errors.confirmPassword.msg %>
+        </small>
+    <% } %>
+    <button type="submit">Submit</button>
+  </form>
+  <p>Already have an account? <a href="/login">Login here </a>here</p>
+</div>

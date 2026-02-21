@@ -1,0 +1,81 @@
+<div class="dashboard">
+    <div class="dashboard-jokes-container">
+    <% messages.forEach((message) => { %> 
+        <div class="dashboard-jokes">
+            <h2><%= message.nickname %></h2>
+            <p><%= message.message %></p>
+            <span><%= new Date(message.date).toLocaleString("en-US", {year: "2-digit", month: "long", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false})%></span>
+            <form action="/deleteJoke" method="POST">
+                <button type="submit" class="<%=!currentUser.admin ? 'hideDeletBtn' : '' %>" name="jokeId" value="<%=message.message_id%>">Delete</button>
+            </form>
+        </div>
+    <% }) %>
+</div>
+
+<form action="/addJoke" method="POST">
+    <textarea name="joke" placeholder="Write your joke" value="<%= old?.joke || '' %>" class="<%= errors?.joke ? 'input-error' : '' %>"></textarea>
+    <% if (errors?.joke) { %> 
+        <small class="error-message">
+            <%= errors.joke.msg %>
+        </small>
+    <% } %>
+    <button type="submit" class="hideJokeForm">Submit</button>
+</form>
+<div>
+    <% if (!currentUser.admin && !currentUser.member) { %>
+        <p>
+            Hey <%= currentUser.nickname %>, become a member and an admin by answering these questions below!
+        </p>
+    <% } else if (!currentUser.admin) { %>
+        <p>
+            Hey <%= currentUser.nickname %>, become an admin by answering the question below!
+        </p>
+    <% } else if (!currentUser.member) { %>
+        <p>
+            Hey <%= currentUser.nickname %>, become a member by answering the question below!
+        </p>
+    <% } %>
+    
+    <% if (!currentUser.admin) { %> 
+        <form action="/adminQuestion" method="POST">
+            <div>
+                <label for="oolscay">oolscay</label>
+                <small>solve this with Pig Latin</small>
+                <input type="text" id="oolscay" name="oolscay"  value="<%= old?.oolscay || '' %>"
+                    class="<%= errors?.oolscay ? 'input-error' : '' %>">
+                <% if (errors?.oolscay) { %>
+                    <small class="error-message">
+                        <%= errors.oolscay.msg %>
+                    </small>
+                <% } %>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <hr>
+    <% } %>
+    <% if (!currentUser.member) { %>
+        <form action="/memberQuestion" method="POST">
+            <div>
+                <label for="pattern">
+                <span class="numberBox">2</span>
+                <span class="numberBox">6</span>
+                <span class="numberBox">7</span>
+                <span class="numberBox">21</span>
+                <span class="numberBox">22</span>
+                <span class="numberBox">66</span>
+                <span class="numberBox">?</span>
+            </label>
+            <small>Recognized a pattern? What's the next number?</small>
+            <input type="number" id="pattern" name="pattern"  value="<%= old?.pattern || '' %>"
+            class="<%= errors?.pattern ? 'input-error' : '' %>">
+            <% if (errors?.pattern) { %>
+                <small class="error-message">
+                    <%= errors.pattern.msg %>
+                </small>
+            <% } %>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    <% } %>
+</div>
+</div>

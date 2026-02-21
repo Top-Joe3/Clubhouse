@@ -1,0 +1,23 @@
+<div class="login">
+    <form action="/login" method="POST">
+  <label for="Username">Username</label>
+  <input type="text" id="nickname" name="nickname" required placeholder="nickname" value="<%= old?.nickname || '' %>"
+      class="<%= errors?.username ? 'input-error' : '' %>"/>
+  <% if (errors?.username) { %> 
+        <small class="error-message">
+            <%= errors.username.msg %>
+        </small>
+    <% } %>
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" required value="<%= old?.password || '' %>"
+      class="<%= errors?.password ? 'input-error' : '' %>"/>
+  <% if (errors?.password) { %> 
+        <small class="error-message">
+            <%= errors.password.msg %>
+        </small>
+    <% } %>
+  <button type="submit">Submit</button>
+</form>
+<p class="extra">Don't have an account? <a href="/signup">Sign up </a>instead</p>
+
+</div>

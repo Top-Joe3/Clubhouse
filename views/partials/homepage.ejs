@@ -1,0 +1,38 @@
+<div class="main">
+    <div class="hero">
+        <p>Welcome to Clubhouse</p>
+        <p>It is a collection of interest groups for like minded people. Others coming soon</p>
+    </div>
+    <div class="side">
+        <h2>Coming Soon</h2>
+        <div>
+            <span class="book"></span>
+            <p>Book worm</p>
+        </div>
+        <div>
+            <span class="health"></span>
+            <p>Health and fitness</p>
+        </div>
+        <div>
+            <span class="travel"></span>
+            <p>Travel and tours</p>
+        </div>
+        
+    </div>
+    <div class="home">
+        <div class="jokes-container">
+            <% messages.forEach((message) => { %> 
+                <div class="jokes-card">
+                    <h3 class="<%= !currentUser ? 'notUser' : '' %>"><%= message.nickname %></h3>
+                    <p><%= message.message %></p>
+                    <span class="<% !currentUser ? 'notUser' : '' %>"><%= new Date(message.date).toLocaleString("en-US", {year: "2-digit", month: "long", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false})%></span>
+                </div>
+            <% }) %>
+        </div>
+        <div>
+            <% if (!currentUser) { %>
+                <p>Got jokes? <a href="/login">Login </a>to add yours</p>
+            <% } %>
+        </div>
+    </div>
+</div>
