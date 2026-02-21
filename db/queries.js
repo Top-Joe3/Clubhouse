@@ -1,11 +1,10 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_ROLE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,  
+  },
 });
 
 async function getMessages() {
@@ -33,12 +32,20 @@ async function addJoke(fields) {
   );
 }
 
-async function admin(userId){
-    await pool.query("UPDATE users SET admin = true WHERE id = $1", [userId])
+async function admin(userId) {
+  await pool.query("UPDATE users SET admin = true WHERE id = $1", [userId]);
 }
 
-async function member(userId){
-    await pool.query("UPDATE users SET member = true WHERE id = $1", [userId])
+async function member(userId) {
+  await pool.query("UPDATE users SET member = true WHERE id = $1", [userId]);
 }
 
-module.exports = { pool, getMessages, addUser, deleteJoke, addJoke, admin, member };
+module.exports = {
+  pool,
+  getMessages,
+  addUser,
+  deleteJoke,
+  addJoke,
+  admin,
+  member,
+};

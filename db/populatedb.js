@@ -31,11 +31,10 @@ VALUES
 
 async function populate() {
   const client = new Client({
-    host: process.env.DB_HOST,
-    user: process.env.DB_ROLE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   });
   try {
     console.log("seeding...");
